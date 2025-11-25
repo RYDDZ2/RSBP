@@ -1,0 +1,249 @@
+/*
+ * file: static/style.css
+ * Dibuat untuk proyek MBTI Fuzzy Quiz
+ * Meniru gaya kuis interaktif seperti Kahoot/Quizizz.
+ */
+
+/* --- RESET & FONT DASAR --- */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Memastikan halaman penuh */
+    background-color: #f0f0f5; /* Latar belakang abu-abu muda */
+    color: #333;
+}
+
+/* --- HEADER / SCORE DISPLAY (Paling Atas) --- */
+#score-display {
+    width: 95%;
+    max-width: 900px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #333; /* Background gelap untuk skor */
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    order: -1; /* Posisikan di paling atas */
+}
+
+/* --- MBTI Dominance Display --- */
+.mbti-display {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #555;
+    margin-bottom: 10px;
+}
+
+.mbti-slot {
+    font-size: 2.2em; /* Ukuran huruf besar untuk dominasi MBTI */
+    font-weight: bold;
+    color: #ccc; /* Warna default abu-abu */
+    min-width: 50px;
+    transition: color 0.3s ease; /* Transisi warna agar terlihat halus saat berubah */
+}
+
+/* Highlight E/I yang dominan (Emas untuk Extrovert sebagai contoh) */
+#mbti-e-i {
+    /* JavaScript akan mengubah warna ini jika E dominan */
+    transition: color 0.3s ease;
+}
+
+/* --- Keirsey Scores Display --- */
+.keirsey-scores {
+    display: flex;
+    flex-wrap: wrap; /* Agar responsif di layar kecil */
+    justify-content: space-around;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+.keirsey-item {
+    padding: 5px 10px;
+}
+.keirsey-item span {
+    color: #00bcd4; /* Warna cyan/biru terang untuk skor */
+    font-weight: bold;
+}
+
+
+/* --- Layar Utama dan Kuis --- */
+.screen {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* --- Layar Awal --- */
+#start-screen h1 {
+    color: #333;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+#start-button {
+    padding: 20px 60px;
+    font-size: 1.8em;
+    font-weight: bold;
+    background-color: #4CAF50; /* Hijau Start */
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 8px #388E3C; /* Efek 3D */
+    transition: background-color 0.2s, transform 0.1s, box-shadow 0.1s;
+}
+
+#start-button:hover:not(:disabled) {
+    background-color: #388E3C;
+}
+#start-button:active:not(:disabled) {
+    transform: translateY(4px);
+    box-shadow: 0 4px #388E3C;
+}
+
+#start-button:disabled {
+    background-color: #ccc;
+    box-shadow: none;
+    cursor: not-allowed;
+    color: #666;
+}
+
+/* --- Layar Kuis (Soal) --- */
+#quiz-screen {
+    /* Tambahkan ruang atas agar tidak menabrak header */
+    padding-top: 100px; 
+}
+
+.question-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    margin-bottom: 30px;
+    text-align: center;
+    width: 90%;
+    max-width: 800px;
+}
+
+#question-text {
+    font-size: 2em;
+    font-weight: 600;
+    color: #2c3e50; /* Biru gelap untuk teks soal */
+    margin: 0;
+    transition: opacity 0.2s ease;
+}
+
+/* --- Kotak Jawaban (Merah dan Biru) --- */
+.answer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dua kolom */
+    gap: 25px;
+    width: 90%;
+    max-width: 800px;
+    margin-top: auto; 
+    padding-bottom: 40px;
+}
+
+.answer-button {
+    padding: 30px 15px;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.1s, box-shadow 0.1s, opacity 0.1s;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    min-height: 100px;
+}
+
+.answer-button:hover {
+    opacity: 0.9;
+}
+
+.answer-button:active {
+    transform: translateY(4px);
+    box-shadow: 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.answer-a {
+    background-color: #E91E63; /* Merah Muda/Fuschia */
+}
+
+.answer-b {
+    background-color: #03A9F4; /* Biru Cerah */
+}
+
+.label {
+    font-size: 1.6em;
+    margin-right: 15px;
+    padding: 0 12px;
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    line-height: 1.5;
+}
+
+/* --- Responsifitas (Untuk Layar Kecil/Mobile) --- */
+@media (max-width: 600px) {
+    #score-display {
+        width: 100%;
+        margin-top: 0;
+        border-radius: 0;
+    }
+    
+    .keirsey-scores {
+        font-size: 0.8em;
+        justify-content: space-between;
+    }
+    
+    .mbti-slot {
+        font-size: 1.8em;
+    }
+
+    #quiz-screen {
+        padding-top: 20px;
+    }
+
+    .question-container {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    #question-text {
+        font-size: 1.4em;
+    }
+
+    .answer-grid {
+        grid-template-columns: 1fr; /* Hanya satu kolom di mobile */
+        gap: 15px;
+        padding-bottom: 20px;
+    }
+    
+    .answer-button {
+        font-size: 1.1em;
+        padding: 20px 10px;
+    }
+    .label {
+        font-size: 1.3em;
+        margin-right: 10px;
+        padding: 0 8px;
+    }
+}

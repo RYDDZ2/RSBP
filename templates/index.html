@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tes Kepribadian MBTI Fuzzy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header id="score-display">
+        <div class="mbti-display">
+            <span class="mbti-slot" id="mbti-e-i">E/I</span>
+            <span class="mbti-slot" id="mbti-s-n">S/N</span>
+            <span class="mbti-slot" id="mbti-t-f">T/F</span>
+            <span class="mbti-slot" id="mbti-j-p">J/P</span>
+        </div>
+        
+        <div class="keirsey-scores">
+            <div class="keirsey-item">Artisan: <span id="score-artisan">0.00</span></div>
+            <div class="keirsey-item">Guardian: <span id="score-guardian">0.00</span></div>
+            <div class="keirsey-item">Idealist: <span id="score-idealist">0.00</span></div>
+            <div class="keirsey-item">Rational: <span id="score-rational">0.00</span></div>
+        </div>
+    </header>
+
+    <main id="start-screen" class="screen">
+        <h1>Tes Kepribadian MBTI Fuzzy Logic</h1>
+        <p>Aplikasi ini akan menentukan tipe kepribadian MBTI dan Temperamen Keirsey Anda berdasarkan 70 pertanyaan menggunakan metode Logika Fuzzy.</p>
+        <button id="start-button" disabled>Loading Data...</button>
+    </main>
+
+    <main id="quiz-screen" class="screen hidden">
+        <div class="question-container">
+            <p id="question-text">Memuat pertanyaan...</p>
+        </div>
+        
+        <div class="answer-grid">
+            <button class="answer-button answer-a" id="option-a-button" data-option="A">
+                <span class="label">A.</span> <span id="option-a-text">Opsi Jawaban A</span>
+            </button>
+            
+            <button class="answer-button answer-b" id="option-b-button" data-option="B">
+                <span class="label">B.</span> <span id="option-b-text">Opsi Jawaban B</span>
+            </button>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
