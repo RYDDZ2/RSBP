@@ -151,18 +151,18 @@ function processAnswer(choice) {
 // --- 4. Update Tampilan Skor (Bagian Paling Menarik) ---
 
 function updateScoreDisplay() {
-    // Update Skor Keirsey (tampilkan 2 angka di belakang koma)
+    // 1. Update Skor Keirsey
     scoreArtisan.innerText = fuzzyScores.A.toFixed(2);
     scoreGuardian.innerText = fuzzyScores.G.toFixed(2);
     scoreIdealist.innerText = fuzzyScores.I_temp.toFixed(2);
     scoreRational.innerText = fuzzyScores.R.toFixed(2);
 
-    // Update MBTI Dominance (Logika: Tampilkan huruf yang skornya lebih besar)
-    
+    // 2. Update MBTI Dominance
+    // KITA HAPUS "style.color" DARI SINI AGAR MENGIKUTI WARNA CSS BARU
+
     // E vs I
     mbtiEI.innerText = (fuzzyScores.E >= fuzzyScores.I) ? "E" : "I";
-    mbtiEI.style.color = (fuzzyScores.E >= fuzzyScores.I) ? "#FFD700" : "#fff"; // Highlight Emas
-
+    
     // S vs N
     mbtiSN.innerText = (fuzzyScores.S >= fuzzyScores.N) ? "S" : "N";
     
@@ -173,13 +173,6 @@ function updateScoreDisplay() {
     mbtiJP.innerText = (fuzzyScores.J >= fuzzyScores.P) ? "J" : "P";
 }
 
-function resetScores() {
-    for (let key in fuzzyScores) {
-        fuzzyScores[key] = 0.0;
-    }
-}
-
-// --- 5. Menyelesaikan Kuis ---
 
 function finishQuiz() {
     quizScreen.classList.add('hidden');
@@ -199,40 +192,44 @@ function finishQuiz() {
         "Rational": fuzzyScores.R
     };
 
-    // Fungsi mencari key dengan value tertinggi
     let finalKeirsey = Object.keys(keirseyMap).reduce((a, b) => keirseyMap[a] > keirseyMap[b] ? a : b);
 
-    // Tampilkan Layar Hasil (Reuse Start Screen biar simpel, atau buat elemen baru)
+    // Tampilkan Layar Hasil dengan Class Baru (.result-card-container)
     startScreen.classList.remove('hidden');
+    
+    // Perhatikan struktur HTML di bawah ini yang menggunakan class dari CSS baru
     startScreen.innerHTML = `
-        <h1 style="color: #333;">Hasil Tes Kepribadian</h1>
+        <h1 style="text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Hasil Tes Kepribadian</h1>
         
-        <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px;">
-            <p>Tipe MBTI Anda:</p>
-            <h2 style="font-size: 3em; color: #00bcd4; margin: 10px 0;">${finalMBTI}</h2>
+        <div class="result-card-container">
+            <p class="result-label">Tipe MBTI Anda</p>
+            <div class="result-value-mbti">${finalMBTI}</div>
             
-            <p>Temperamen Keirsey:</p>
-            <h2 style="font-size: 2em; color: #ff9800; margin: 10px 0;">${finalKeirsey}</h2>
+            <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+            
+            <p class="result-label">Temperamen Keirsey</p>
+            <div class="result-value-keirsey">${finalKeirsey}</div>
         </div>
 
         <button id="restart-button" style="
-            padding: 15px 30px; 
+            padding: 15px 40px; 
             font-size: 1.2em; 
-            background-color: #333; 
-            color: white; 
+            background: white; 
+            color: #333; 
+            font-weight: bold;
             border: none; 
-            border-radius: 8px; 
-            cursor: pointer;">
-            Coba Lagi
+            border-radius: 50px; 
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s;">
+            Mulai Ulang
         </button>
     `;
 
-    // Pasang event listener untuk tombol restart yang baru dibuat
     document.getElementById('restart-button').addEventListener('click', () => {
-        window.location.reload(); // Reload halaman untuk reset bersih
+        window.location.reload();
     });
 }
-
 // --- Event Listeners ---
 
 // Saat halaman selesai dimuat
