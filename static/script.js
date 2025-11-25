@@ -173,6 +173,12 @@ function updateScoreDisplay() {
     mbtiJP.innerText = (fuzzyScores.J >= fuzzyScores.P) ? "J" : "P";
 }
 
+function resetScores() {
+    for (let key in fuzzyScores) {
+        fuzzyScores[key] = 0.0;
+    }
+}
+
 
 function finishQuiz() {
     quizScreen.classList.add('hidden');
