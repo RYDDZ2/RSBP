@@ -178,43 +178,80 @@ function resetScores() {
         fuzzyScores[key] = 0.0;
     }
 }
+function generateDynamicExplanation(scores) {
+    let explanationHTML = '<ul style="text-align:left; margin-top:10px;">';
+    
+    // Helper untuk membandingkan dua trait
+    const explainTrait = (traitA, traitB, scoreA, scoreB) => {
+        const winner = scoreA >= scoreB ? traitA : traitB;
+        const diff = Math.abs(scoreA - scoreB);
+        let strength = "";
 
+        // Logika Fuzzy untuk menentukan kekuatan preferensi (Qualitative)
+        if (diff < 1.0) strength = "sedikit";
+        else if (diff < 3.0) strength = "cukup";
+        else strength = "sangat";
+
+        return `<li>Anda <b>${strength} dominan ${winner}</b> (${diff.toFixed(1)} poin beda). ${DIMENSION_EXPLANATIONS[winner]}</li>`;
+    };
+
+    explanationHTML += explainTrait("E", "I", scores.E, scores.I);
+    explanationHTML += explainTrait("S", "N", scores.S, scores.N);
+    explanationHTML += explainTrait("T", "F", scores.T, scores.F);
+    explanationHTML += explainTrait("J", "P", scores.J, scores.P);
+    
+    explanationHTML += '</ul>';
+    return explanationHTML;
+}
 
 function finishQuiz() {
     quizScreen.classList.add('hidden');
     
-    // Hitung Hasil Akhir
+    // 1. Hitung Hasil Akhir (Inferensi)
     const finalMBTI = 
         ((fuzzyScores.E >= fuzzyScores.I) ? "E" : "I") +
         ((fuzzyScores.S >= fuzzyScores.N) ? "S" : "N") +
         ((fuzzyScores.T >= fuzzyScores.F) ? "T" : "F") +
         ((fuzzyScores.J >= fuzzyScores.P) ? "J" : "P");
 
-    // Cari Temperamen Keirsey Tertinggi
+    // 2. Cari Temperamen Keirsey Tertinggi
     const keirseyMap = {
         "Artisan": fuzzyScores.A,
         "Guardian": fuzzyScores.G,
         "Idealist": fuzzyScores.I_temp,
         "Rational": fuzzyScores.R
     };
-
     let finalKeirsey = Object.keys(keirseyMap).reduce((a, b) => keirseyMap[a] > keirseyMap[b] ? a : b);
 
-    // Tampilkan Layar Hasil dengan Class Baru (.result-card-container)
+    // 3. Ambil Data Kualitatif dari descriptions.js
+    const mbtiInfo = MBTI_DETAILS[finalMBTI];
+    const keirseyInfo = KEIRSEY_DESCRIPTIONS[finalKeirsey];
+
+    // 4. Generate Penjelasan "Why" (XAI)
+    const reasoningText = generateDynamicExplanation(fuzzyScores);
+
+    // 5. Tampilkan Layar Hasil
     startScreen.classList.remove('hidden');
     
-    // Perhatikan struktur HTML di bawah ini yang menggunakan class dari CSS baru
     startScreen.innerHTML = `
-        <h1 style="text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Hasil Tes Kepribadian</h1>
+        <h1 style="text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Hasil Analisis Kepribadian</h1>
         
         <div class="result-card-container">
             <p class="result-label">Tipe MBTI Anda</p>
             <div class="result-value-mbti">${finalMBTI}</div>
+            <h3 style="margin-top:-10px; color:#333;">"${mbtiInfo.role}"</h3>
+            <p style="font-style:italic;">${mbtiInfo.desc}</p>
             
             <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
             
             <p class="result-label">Temperamen Keirsey</p>
             <div class="result-value-keirsey">${finalKeirsey}</div>
+            <p>${keirseyInfo.desc}</p>
+            
+            <div style="background: rgba(0,0,0,0.05); padding: 15px; border-radius: 10px; margin-top: 20px; font-size: 0.9em;">
+                <strong>💡 Mengapa hasil ini muncul? (Explainable AI)</strong>
+                ${reasoningText}
+            </div>
         </div>
 
         <button id="restart-button" style="
