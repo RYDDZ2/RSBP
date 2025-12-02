@@ -42,14 +42,14 @@ const MBTI_DETAILS = {
     "INTP": { "role": "Architect", "desc": "Penemu yang inovatif dengan haus akan pengetahuan yang tak terpuaskan." }
 };
 
-// Penjelasan Dinamis untuk Dimensi (XAI Generator)
+// PERBAIKAN DI SINI: Menghapus
 const DIMENSION_EXPLANATIONS = {
-    "E": "Anda cenderung **Expressive (E)**[cite: 2924]. Anda mendapatkan energi dari interaksi sosial dan aktivitas luar.",
-    "I": "Anda cenderung **Reserved (I)**[cite: 2927]. Anda lebih nyaman dengan ketenangan dan memproses pikiran secara internal.",
-    "S": "Anda bersifat **Observant (S)**[cite: 2925]. Anda fokus pada fakta nyata, pengalaman konkret, dan apa yang terjadi saat ini.",
-    "N": "Anda bersifat **Introspective (N)**[cite: 2929]. Anda lebih tertarik pada ide, teori, masa depan, dan kemungkinan abstrak.",
-    "T": "Anda adalah **Tough-minded (T)**[cite: 2933]. Anda mengambil keputusan berdasarkan logika objektif dan analisis sebab-akibat.",
-    "F": "Anda adalah **Friendly (F)**[cite: 2930]. Anda mengambil keputusan berdasarkan nilai-nilai pribadi dan dampaknya pada orang lain.",
-    "J": "Anda memiliki gaya **Scheduling (J)**[cite: 2933]. Anda suka rencana yang teratur, keputusan yang pasti, dan keteraturan.",
-    "P": "Anda memiliki gaya **Probing (P)**[cite: 2932]. Anda fleksibel, spontan, dan suka membiarkan opsi tetap terbuka."
+    "E": "Anda cenderung **Expressive (E)**. Anda mendapatkan energi dari interaksi sosial dan aktivitas luar.",
+    "I": "Anda cenderung **Reserved (I)**. Anda lebih nyaman dengan ketenangan dan memproses pikiran secara internal.",
+    "S": "Anda bersifat **Observant (S)**. Anda fokus pada fakta nyata, pengalaman konkret, dan apa yang terjadi saat ini.",
+    "N": "Anda bersifat **Introspective (N)**. Anda lebih tertarik pada ide, teori, masa depan, dan kemungkinan abstrak.",
+    "T": "Anda adalah **Tough-minded (T)**. Anda mengambil keputusan berdasarkan logika objektif dan analisis sebab-akibat.",
+    "F": "Anda adalah **Friendly (F)**. Anda mengambil keputusan berdasarkan nilai-nilai pribadi dan dampaknya pada orang lain.",
+    "J": "Anda memiliki gaya **Scheduling (J)**. Anda suka rencana yang teratur, keputusan yang pasti, dan keteraturan.",
+    "P": "Anda memiliki gaya **Probing (P)**. Anda fleksibel, spontan, dan suka membiarkan opsi tetap terbuka."
 };
