@@ -249,7 +249,7 @@ function finishQuiz() {
             <p>${keirseyInfo.desc}</p>
             
             <div style="background: rgba(0,0,0,0.05); padding: 15px; border-radius: 10px; margin-top: 20px; font-size: 0.9em;">
-                <strong>💡 Mengapa hasil ini muncul? (Explainable AI)</strong>
+                <strong>💡 Mengapa hasil ini muncul?</strong>
                 ${reasoningText}
             </div>
         </div>
